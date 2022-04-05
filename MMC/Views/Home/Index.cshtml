@@ -1,0 +1,99 @@
+﻿@{
+                /**/
+
+                ViewBag.Title = "Home Page";
+}
+
+
+@{
+    ViewBag.Title = "departamento";
+
+}
+
+<script src="~/Content/reportes/reporte.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.js"></script>
+<br />
+<style>
+    @@media print {
+        body * {
+            visibility: hidden;
+        }
+
+        #printableArea, #printableArea * {
+            visibility: visible;
+        }
+
+        #printableArea {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .no-print, .no-print * {
+            display: none !important;
+        }
+    }
+</style>
+<div class="card" style="margin-right:3%;margin-left:3%" id="printableArea">
+    <div class="card-header">
+        <h3 class="card-title">Mantenimiento</h3>
+    </div>
+
+
+    <div class="card-body" style="width:auto">
+
+
+
+        <div class="row no-print">
+            <div class="col-4">
+                <label for="_feinicio">Fecha Inicio </label>
+                <input type="date" class="form-control" id="_feinicio">
+
+            </div>
+            <div class="col-4">
+                <label for="_fefinal">Fecha Final </label>
+                <input type="date" class="form-control" id="_fefinal">
+            </div>
+            <div class="col-4">
+                <label for="btnbuscardepa" style="visibility:hidden">Button Label</label>
+                <input type="button" class="form-control" id="btnbuscardepa" value="Buscar" style="background-color:Highlight;color:white">
+            </div>
+        </div>
+        <div class="row no-print">
+            <div class="col-4">
+
+            </div>
+            <div class="col-4">
+
+            </div>
+            <div class="col-4">
+                <input type="button" class="form-control" onclick="window.print();" value="Imprimir" style="background-color:lightslategrey;color:white">
+            </div>
+
+
+        </div>
+        <br />
+
+        <canvas id="myChart"></canvas>
+
+        <br />
+        <br />
+
+        <table id="reporteDepartamentoTabla" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Departamento</th>
+                    <th>Cantidad</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+
+        </table>
+
+    </div>
+    <!-- /.card-body -->
+</div>
+
+<br />
+
+

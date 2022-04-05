@@ -1,0 +1,280 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Administración de Centros de Cómputo</title>
+    <script src="~/Content/plugins/jquery/jquery.js"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="~/Content/plugins/fontawesome-free/css/all.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/Content/plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/dist/css/adminlte.min.css">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link href="~/Content/plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <title>@ViewBag.Title - Modelo de Madurez de Capacidades</title>
+    <style>
+        #tablaPedidos {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            height: 30px;
+            overflow-y: scroll
+        }
+
+            #tablaPedidos td, #tablaPedidos th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #tablaPedidos tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+
+            #tablaPedidos tr:hover {
+                background-color: #ddd;
+            }
+
+            #tablaPedidos th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4CAF50;
+                color: white;
+            }
+    </style>
+    <style>
+        /* Chrome, Safari, Edge, Opera */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Firefox */
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+                </li>
+                <li class="nav-item d-none d-sm-inline-block">
+                    <a href="/Home" class="nav-link fa fa-home">Home</a>
+                </li>
+
+
+            </ul>
+            <!-- SEARCH FORM -->
+            <!-- Right navbar links -->
+
+            <ul class="navbar-nav ml-auto">
+                <!-- Messages Dropdown Menu -->
+
+                <li class="nav-item">
+
+                    <a href="#" class="nav-link" onclick="editarContra()">
+
+
+
+                        <i class="fas fa-user">
+                            @*Bienvenido, @if (!string.IsNullOrEmpty(Session["usuario"] as string))
+                            {
+                                @Session["usuario"].ToString();
+
+                            }
+                            else
+                            {
+                                Response.Redirect("~");
+                            }*@
+
+
+
+
+                        </i>
+
+                    </a>
+
+
+
+                </li>
+
+            </ul>
+            <a href="@Url.Action("Salir", "Login")" class="nav-link"> <i class="fa fa-sign-out nav-icon"></i>Salir</a>
+        </nav>
+        <!-- /.navbar -->
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-primary elevation-4">
+            <!-- Brand Logo -->
+            <a href="/Home" class="brand-link" style="background-color:white;height:60px" >
+                <img src="~/Content/img/Logofinal.png" class="brand-image elevation-2"
+                     style="opacity: .6;width:120px;height:80px">
+                <span class="brand-text font-weight-light"></span>
+            </a>
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar user panel (optional) -->
+                <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                    <div class="info">
+                        <a class="d-block">Navegación Principal</a>
+                    </div>
+                </div>
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fa fa-list-alt"></i>
+                                <p>
+                                    Procesos
+                                    <i class="fas fa-angle-left right"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+
+                                <li class="nav-item">
+                                    <a href="@Url.Action("Index", "Ordenes")" class="nav-link">
+                                        <i class="far fa fa-cubes nav-icon"></i>
+                                        <p>Mantenimiento</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+
+                        @*@if (Session["rolID1"].ToString() == "13" || Session["rolID1"].ToString() == "1")
+                        {*@
+                            <li class="nav-item has-treeview">
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fa fa-users"></i>
+                                    <p>
+                                        Mantenimiento
+                                        <i class="fas fa-angle-left right"></i>
+                                    </p>
+                                </a>
+                                <ul class="nav nav-treeview">
+
+                                    <li class="nav-item">
+                                        <a href="@Url.Action("VerUsuarios", "Usuarios")" class="nav-link">
+                                            <i class="far fa fa-users nav-icon"></i>
+                                            <p>Mantenimiento</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
+                            </li>
+
+
+
+                        @*}*@
+ 
+                    </ul>
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+        <!-- Content Wrapper. Contains page content -->
+
+        <div class="content-wrapper">
+            @RenderBody()
+        </div>
+
+        <div class="modal fade" id="editarContraModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="partial"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <footer class="main-footer">
+            <strong>Copyright &copy; @DateTime.Now.Year <a href="">Administración de Centros de Cómputo</a>.</strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b></b>
+            </div>
+        </footer>
+    </div>
+    <!-- ./wrapper -->
+    <!-- REQUIRED SCRIPTS -->
+    <!-- jQuery -->
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="~/Content/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- overlayScrollbars -->
+    <script src="~/Content/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/Content/dist/js/adminlte.js"></script>
+    <!-- OPTIONAL SCRIPTS -->
+    <script src="~/Content/dist/js/demo.js"></script>
+    <!-- PAGE PLUGINS -->
+    <!-- jQuery Mapael -->
+    <script src="~/Content/plugins/jquery-mousewheel/jquery.mousewheel.js"></script>
+    <script src="~/Content/plugins/raphael/raphael.min.js"></script>
+    <script src="~/Content/plugins/jquery-mapael/jquery.mapael.min.js"></script>
+    <script src="~/Content/plugins/jquery-mapael/maps/usa_states.min.js"></script>
+
+    <!-- PAGE SCRIPTS -->
+    <script src="~/Content/dist/js/pages/dashboard2.js"></script>
+    <!-- SCRIPTS OWN -->
+    <script src="~/Content/usuarios/js/usuarios.js"></script>
+    <script src="~/Content/roles/js/roles.js"></script>
+    <link href="~/Content/login/vendor/animate/animate.css" rel="stylesheet" />
+    <script src="~/Content/Pnotify/pnotify.custom.min.js"></script>
+    <link href="~/Content/Pnotify/pnotify.custom.min.css" rel="stylesheet" />
+    <script src="~/Content/alertifyjs/alertify.min.js"></script>
+    <link href="~/Content/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+    <link href="~/Content/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
+    <script>
+        function verNotificacion(titulo, mensaje, tipo) {
+
+            new PNotify({
+                title: titulo,
+                text: mensaje,
+                type: tipo,
+                modules: {
+                    Animate: {
+                        animate: true,
+                        inClass: 'bounceInLeft',
+                        outClass: 'bounceOutRight'
+                    }
+                }
+            });
+        }
+
+
+
+
+    </script>
+</body>
+</html>
